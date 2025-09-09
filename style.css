@@ -1,37 +1,156 @@
+/* =============================
+   Global Theme
+============================= */
 :root {
-  --brand: #0d6efd;
+  --brand: #0d6efd;   /* Bootstrap primary blue */
+  --brand-dark: #084298;
   --muted: #6c757d;
+  --light-bg: #f8f9fa;
   --max-width: 1100px;
 }
 
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   color: #222;
-  line-height: 1.5;
+  line-height: 1.6;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
-/* hero */
+/* =============================
+   Navbar
+============================= */
+.navbar {
+  padding: 0.75rem 1rem;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.navbar .nav-link {
+  margin-left: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+  color: var(--brand);
+}
+
+/* =============================
+   Hero Section
+============================= */
 .hero {
-  min-height: 320px;
-  background: linear-gradient(0deg, rgba(13,110,253,0.75), rgba(13,110,253,0.75)), url('assets/images/hero.jpg') center/cover no-repeat;
+  min-height: 360px;
+  background: linear-gradient(
+      0deg,
+      rgba(13, 110, 253, 0.75),
+      rgba(13, 110, 253, 0.75)
+    ),
+    url('assets/images/hero.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
 }
 
-/* cards */
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* =============================
+   Cards (Projects, Members)
+============================= */
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
 .card .card-img-top {
   height: 180px;
   object-fit: cover;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
-/* small responsive tweaks */
-@media (max-width: 576px) {
-  .hero { min-height: 220px; }
-}
-
-/* footer */
-footer { font-size: .95rem; }
-
-/* newsletter timeline look */
+/* =============================
+   Newsletter Timeline Look
+============================= */
 .news-card {
   border-left: 3px solid var(--brand);
   padding-left: 1rem;
+  background-color: var(--light-bg);
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.news-card:hover {
+  background-color: #e9f2ff;
+}
+
+.news-card a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--brand-dark);
+}
+
+.news-card a:hover {
+  text-decoration: underline;
+}
+
+/* =============================
+   Footer
+============================= */
+footer {
+  font-size: 0.95rem;
+  background: #111;
+  color: #ddd;
+}
+
+footer a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* =============================
+   Responsive Tweaks
+============================= */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 280px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    min-height: 220px;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
 }

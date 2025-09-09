@@ -1,14 +1,17 @@
 // script.js — small client-side renderer (no build step)
+
 document.addEventListener('DOMContentLoaded', () => {
   // set current year in footers
-  document.querySelectorAll('[id^="currentYear"]').forEach(el => el.textContent = new Date().getFullYear());
+  document.querySelectorAll('[id^="currentYear"]').forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
 
   // initialize per-page render
   if (document.getElementById('projectsGrid')) loadProjects();
   if (document.getElementById('newsList')) loadNewsletters();
   if (document.getElementById('membersGrid')) loadMembers();
 
-  // search filter
+  // search filter (projects)
   const search = document.getElementById('searchProjects');
   if (search) {
     search.addEventListener('input', () => {
@@ -22,16 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// fetch helper
-async function getJSON(url){ const res = await fetch(url); return res.ok ? res.json() : null; }
+/* ---------- Fetch Helper ---------- */
+async function getJSON(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(res.statusText);
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to load JSON:", url, err);
+    return null;
+  }
+}
 
 /* ---------- Projects ---------- */
-async function loadProjects(){
+async function loadProjects() {
   const data = await getJSON('assets/data/projects.json');
   if (!data) return;
+
   const grid = document.getElementById('projectsGrid');
   grid.innerHTML = data.map(p => projectCardHTML(p)).join('');
-  // attach click handlers (delegation)
+
+  // modal trigger via delegation
   grid.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-projid]');
     if (!btn) return;
@@ -41,13 +55,13 @@ async function loadProjects(){
   });
 }
 
-function projectCardHTML(p){
+function projectCardHTML(p) {
   const tags = (p.tags || []).join(', ');
   const short = p.shortDescription || '';
   const img = (p.images && p.images[0]) ? p.images[0] : 'assets/images/avatar-placeholder.png';
   return `
     <div class="col-md-4 project-card" data-title="${escapeHtml(p.title)}" data-tags="${escapeHtml(tags)}">
-      <div class="card h-100 shadow-sm">
+      <div class="card h-100">
         <img src="${img}" class="card-img-top" alt="${escapeHtml(p.title)}">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">${escapeHtml(p.title)}</h5>
@@ -61,9 +75,11 @@ function projectCardHTML(p){
   `;
 }
 
-function openProjectModal(project){
+function openProjectModal(project) {
   document.getElementById('projectModalTitle').textContent = project.title || 'Project';
   document.getElementById('projectModalDescription').textContent = project.description || '';
+
+  // images carousel
   const inner = document.getElementById('projectCarouselInner');
   const images = project.images && project.images.length ? project.images : ['assets/images/avatar-placeholder.png'];
   inner.innerHTML = images.map((src, i) => `
@@ -71,31 +87,33 @@ function openProjectModal(project){
       <img src="${src}" class="d-block w-100" alt="${escapeHtml(project.title)} image ${i+1}" style="max-height:500px;object-fit:cover;">
     </div>
   `).join('');
+
   // reset carousel to first slide
   const carouselElem = document.getElementById('projectCarousel');
   const carousel = bootstrap.Carousel.getInstance(carouselElem);
   if (carousel) carousel.to(0);
-  else new bootstrap.Carousel(carouselElem, {ride:false});
+  else new bootstrap.Carousel(carouselElem, { ride: false });
 
-  const modal = new bootstrap.Modal(document.getElementById('projectModal'));
-  modal.show();
+  // show modal
+  new bootstrap.Modal(document.getElementById('projectModal')).show();
 }
 
 /* ---------- Newsletters ---------- */
-async function loadNewsletters(){
+async function loadNewsletters() {
   const data = await getJSON('assets/data/newsletters.json');
   if (!data) return;
+
   const el = document.getElementById('newsList');
   el.innerHTML = data.map(n => `
     <div class="col-12">
       <div class="card news-card p-3">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between flex-wrap">
           <div>
             <h5>${escapeHtml(n.title)} <small class="text-muted">— ${escapeHtml(n.date)}</small></h5>
             <p class="mb-1">${escapeHtml(n.description || '')}</p>
           </div>
           <div class="text-end">
-            <a class="btn btn-outline-primary" href="${n.file}" target="_blank" rel="noopener">View / Download</a>
+            <a class="btn btn-outline-primary mt-2 mt-sm-0" href="${n.file}" target="_blank" rel="noopener">View / Download</a>
           </div>
         </div>
       </div>
@@ -104,9 +122,10 @@ async function loadNewsletters(){
 }
 
 /* ---------- Members ---------- */
-async function loadMembers(){
+async function loadMembers() {
   const data = await getJSON('assets/data/members.json');
   if (!data) return;
+
   const grid = document.getElementById('membersGrid');
   grid.innerHTML = data.map(m => `
     <div class="col">
@@ -124,9 +143,9 @@ async function loadMembers(){
 /* ---------- Utilities ---------- */
 function escapeHtml(s = '') {
   return String(s)
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'",'&#39;');
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
