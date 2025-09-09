@@ -1,11 +1,10 @@
 name: Deploy GitHub Pages
 
-# Trigger: push to main branch OR manual
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main           # automatic deploy on push
+  workflow_dispatch:    # manual trigger option
 
 jobs:
   deploy:
@@ -16,16 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Deploy to GitHub Pages
+      # 2️⃣ Deploy to GitHub Pages (static site)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # Use PAT secret for full write access
-          personal_token: ${{ secrets.GH_PAT }}
-          publish_branch: gh-pages       # target branch
-          publish_dir: ./                # root folder where index.html is
-          force_orphan: true             # ensures clean deploy
-          allow_empty_commit: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./       # root folder with index.html
+          force_orphan: true
+          allow_empty_commit: true
           keep_files: false
           enable_jekyll: false
           exclude_assets: .github
