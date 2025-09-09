@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leo Club — Projects</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Leo Club</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navMenu" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="newsletter.html">Newsletter</a></li>
+          <li class="nav-item"><a class="nav-link" href="members.html">Members</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero text-white text-center d-flex align-items-center">
+    <div class="container py-5">
+      <h1 class="display-5 fw-bold">Leo Club — Serving the Community</h1>
+      <p class="lead mb-4">Projects, news, and members — see what we do and join our mission.</p>
+      <a href="#projects" class="btn btn-light btn-lg">See Projects</a>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="container my-5">
+    <div class="row g-4 align-items-center">
+      <div class="col-md-7">
+        <h2>About our club</h2>
+        <p>We are the Leo Club from [Your School/Community]. We run community service projects, awareness campaigns and local events. This site lists our projects, latest newsletters, and members.</p>
+      </div>
+      <div class="col-md-5">
+        <img src="assets/images/hero.jpg" alt="Leo Club photo" class="img-fluid rounded shadow-sm">
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS (search + grid) -->
+  <section id="projects" class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Projects</h2>
+      <div class="w-50 ms-3">
+        <input id="searchProjects" class="form-control" placeholder="Search projects by name or tag...">
+      </div>
+    </div>
+
+    <div id="projectsGrid" class="row g-4">
+      <!-- cards rendered by script.js -->
+    </div>
+  </section>
+
+  <!-- PROJECT MODAL (detail + carousel) -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="projectModalTitle" class="modal-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="projectCarousel" class="carousel slide mb-3" data-bs-ride="false">
+            <div class="carousel-inner" id="projectCarouselInner"></div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <p id="projectModalDescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div>© <span id="currentYear"></span> Leo Club</div>
+      <div class="text-md-end">
+        <div>Contact: <a class="text-white" href="mailto:leoclub@example.com">leoclub@example.com</a> | +94 71 234 5678</div>
+        <div class="small">Address or social links here</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap + app script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

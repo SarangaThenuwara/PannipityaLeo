@@ -1,0 +1,23 @@
+[
+  {
+    "id": "community-service",
+    "title": "Community Service",
+    "shortDescription": "Helping at the local community center — food & education support.",
+    "description": "We organize monthly visits, distribute supplies, and run skills workshops for youth.",
+    "tags": ["service","community","education"],
+    "images": [
+      "assets/images/project1-1.jpg",
+      "assets/images/project1-2.jpg"
+    ]
+  },
+  {
+    "id": "tree-planting",
+    "title": "Tree Planting Drive",
+    "shortDescription": "Local reforestation project with schools.",
+    "description": "Planting native trees, raising awareness about environment and sustainability.",
+    "tags": ["environment","trees","sustainability"],
+    "images": [
+      "assets/images/project2-1.jpg"
+    ]
+  }
+]

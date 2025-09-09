@@ -1,0 +1,5 @@
+[
+  { "name": "John Doe", "role": "President", "avatar": "assets/images/avatar-placeholder.png" },
+  { "name": "Jane Smith", "role": "Secretary", "avatar": "assets/images/avatar-placeholder.png" },
+  { "name": "Kamal Perera", "role": "Member", "avatar": "assets/images/avatar-placeholder.png" }
+]
